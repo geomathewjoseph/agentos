@@ -160,44 +160,34 @@ flowchart TB
 
 ## Screenshots
 
-The following screenshots showcase the AgentOS user interface and pipeline monitoring capabilities:
+## Screenshots
+
+The following screenshots showcase the AgentOS user interface and pipeline monitoring capabilities. These are referenced via Markdown image syntax and will render correctly on GitHub:
 
 ### Dashboard
 The main dashboard shows starter templates and a prompt bar for entering custom goals.
 
-<p align="center">
-  <img src="docs/screenshots/dashboard_home.png" alt="AgentOS Dashboard" width="800"/>
-</p>
+![AgentOS Dashboard](docs/screenshots/dashboard_home.png =800x)
 
 ### Settings — API Keys
 Configure API keys for multiple LLM providers. Only active providers need keys.
 
-<p align="center">
-  <img src="docs/screenshots/settings_api_keys.png" alt="Settings - API Keys" width="750"/>
-</p>
+![Settings - API Keys](docs/screenshots/settings_api_keys.png =750x)
 
 ### Settings — Model Routing
 Select the primary provider for each agent role. The system automatically falls back to the next provider if rate-limited.
 
-<p align="center">
-  <img src="docs/screenshots/settings_model_routing.png" alt="Settings - Model Routing" width="750"/>
-</p>
+![Settings - Model Routing](docs/screenshots/settings_model_routing.png =750x)
 
 ### Pipeline Execution
 Real-time pipeline viewer showing each agent stage with live status, streaming logs, and completion indicators. Notice the fallback rerouting and token truncation happening in the logs.
 
-<p align="center">
-  <img src="docs/screenshots/pipeline_execution.png" alt="Pipeline Execution" width="750"/>
-</p>
+![Pipeline Execution](docs/screenshots/pipeline_execution.png =750x)
 
 ### Artifacts Viewer
 Browse generated source files in a hierarchical file tree with syntax-highlighted code preview and one-click copy.
 
-<p align="center">
-  <img src="docs/screenshots/artifacts_viewer.png" alt="Artifacts Viewer" width="750"/>
-</p>
-
----
+![Artifacts Viewer](docs/screenshots/artifacts_viewer.png =750x)
 
 ## Rate Limit Bypass & Resilient Rerouting
 
