@@ -1,0 +1,49 @@
+# AgentOS Model Configuration
+# Providers are tried in order. First success wins.
+#
+# Primary: Groq (high-speed inference with active models)
+# Fallback: OpenRouter free tier
+
+models:
+  planning:
+    chain:
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: inclusionai/ling-3.0-flash-sante:free }
+
+  architecture:
+    chain:
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: inclusionai/ling-3.0-flash-sante:free }
+
+  coding:
+    chain:
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: cohere/north-mini-code:free }
+
+  review:
+    # Reviews run sequentially across roles
+    chain:
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: inclusionai/ling-3.0-flash-sante:free }
+
+  fixing:
+    chain:
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: cohere/north-mini-code:free }
+
+  documentation:
+    chain:
+      - { provider: groq,        model: openai/gpt-oss-120b }
+      - { provider: groq,        model: qwen/qwen3.8-27b }
+      - { provider: groq,        model: openai/gpt-oss-20b }
+      - { provider: openrouter,  model: inclusionai/ling-3.0-flash-sante:free }

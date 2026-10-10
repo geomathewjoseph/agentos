@@ -1,0 +1,32 @@
+review:
+  min_score: 75
+  low_score_arch: 30
+
+loop:
+  max_iterations: 3
+  max_global_iterations: 2
+  stuck_fixer_repeats: 3
+
+tokens:
+  max_prompt_fraction: 0.75
+  model_context_windows:
+    "qwen-qwq-32b": 32768
+    "qwen-3-32b": 32768
+    "Qwen2.5-Coder-32B-Instruct": 32768
+    "qwen-2.5-coder-32b-instruct": 32768
+    "DeepSeek-R1-Distill-Llama-70B": 32768
+    "deepseek-r1-distill-llama-70b": 32768
+    "llama-3.3-70b-versatile": 32768
+    "llama-3.3-70b": 8192
+    "Meta-Llama-3.3-70B-Instruct": 131072
+    "openai/gpt-oss-120b": 131072
+    "qwen/qwen3.8-27b": 32768
+    "openai/gpt-oss-20b": 32768
+    "gemini-2.0-flash": 1048576
+    "default": 32768
+
+docker:
+  image: "python:3.11-slim"
+  timeout_seconds: 120
+  memory_limit: "512m"
+  network: "none"

@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="agentos-gradient" x1="4" y1="4" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+  <rect width="36" height="36" rx="10" fill="#18181b"/>
+  <rect x="2" y="2" width="32" height="32" rx="9" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.2" fill="none"/>
+  <circle cx="18" cy="18" r="5.5" stroke="url(#agentos-gradient)" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="18" cy="9" r="2.2" fill="#ffffff"/>
+  <circle cx="10" cy="23.5" r="2.2" fill="#10b981"/>
+  <circle cx="26" cy="23.5" r="2.2" fill="#06b6d4"/>
+  <path d="M18 11.2 V12.5 M11.8 22.4 L13 21.5 M24.2 22.4 L23 21.5" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

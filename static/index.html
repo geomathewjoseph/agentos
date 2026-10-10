@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentOS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="dark-theme">
+
+    <div id="app">
+        
+        <!-- ================= MINIMAL SIDEBAR ================= -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-top">
+                <button class="icon-btn sidebar-toggle" title="Close Sidebar"><i data-lucide="menu"></i></button>
+                <button class="icon-btn new-chat-btn" id="btn-new-chat" title="New Session"><i data-lucide="plus"></i></button>
+            </div>
+            
+            <div class="sidebar-middle">
+                <!-- Chat history would go here -->
+            </div>
+
+            <div class="sidebar-bottom">
+                <button class="icon-btn" id="btn-settings" title="Settings"><i data-lucide="settings"></i></button>
+            </div>
+        </aside>
+
+        <!-- ================= MAIN CHAT AREA ================= -->
+        <main id="main-content" class="main-content state-initial">
+            
+            <!-- INITIAL GREETING (Only visible before a prompt is submitted) -->
+            <div id="greeting-container" class="greeting-container">
+                <h1 class="greeting-text"><i data-lucide="sparkles" class="greeting-icon"></i> Good Evening, Architect.</h1>
+            </div>
+
+            <!-- CHAT STREAM (Visible after a prompt is submitted) -->
+            <div id="chat-stream" class="chat-stream hidden">
+                <div class="chat-bubble user-bubble">
+                    <div class="bubble-avatar"><i data-lucide="user"></i></div>
+                    <div class="bubble-content" id="user-prompt-display">Build a REST API...</div>
+                </div>
+
+                <div class="chat-bubble agent-bubble">
+                    <div class="bubble-avatar"><i data-lucide="cpu"></i></div>
+                    <div class="bubble-content">
+                        
+                        <!-- Pipeline Status Card -->
+                        <div class="pipeline-card">
+                            <div class="pipeline-header">
+                                <h3>AgentOS Pipeline</h3>
+                                <span id="pipeline-status-badge" class="badge badge-running">Running</span>
+                            </div>
+                            <div class="pipeline-nodes" id="pipeline-nodes">
+                                <!-- Nodes injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Terminal Output (Collapsible) -->
+                        <details class="terminal-card" open>
+                            <summary>System Logs</summary>
+                            <div class="terminal-body" id="terminal-output">
+                                <div class="log-entry system"><span class="timestamp">[System]</span> Initializing...</div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <!-- Spacer for scrolling -->
+                <div class="scroll-spacer"></div>
+            </div>
+
+            <!-- FLOATING INPUT AREA -->
+            <div id="input-container" class="input-container">
+                <div class="input-box">
+                    <textarea id="goal-input" placeholder="What would you like to build today?" rows="1" autofocus></textarea>
+                    <div class="input-actions">
+                        <button class="icon-btn submit-btn" id="btn-start-build" title="Run AgentOS">
+                            <i data-lucide="arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Suggestion Chips (Visible only in initial state) -->
+                <div id="suggestion-chips" class="suggestion-chips">
+                    <button class="chip"><i data-lucide="code"></i> CLI Tool</button>
+                    <button class="chip"><i data-lucide="layout-template"></i> Web App</button>
+                    <button class="chip"><i data-lucide="database"></i> REST API</button>
+                    <button class="chip"><i data-lucide="test-tube"></i> Unit Tests</button>
+                </div>
+                
+                <p class="footer-text">AgentOS can make mistakes. Please verify generated code.</p>
+            </div>
+            
+        </main>
+
+        <!-- ================= RIGHT DRAWER: ARTIFACTS ================= -->
+        <aside id="artifacts-drawer" class="artifacts-drawer hidden">
+            <div class="drawer-header">
+                <h2>Generated Artifacts</h2>
+                <button class="icon-btn" id="btn-close-drawer"><i data-lucide="x"></i></button>
+            </div>
+            
+            <div class="drawer-content">
+                <!-- File Tree -->
+                <div class="file-tree" id="file-tree">
+                    <div class="empty-state">
+                        <p>No files generated yet.</p>
+                    </div>
+                </div>
+                
+                <!-- Code Viewer Overlay -->
+                <div class="code-viewer hidden" id="code-viewer">
+                    <div class="code-viewer-header">
+                        <button class="icon-btn" id="btn-back-tree" title="Back to files"><i data-lucide="arrow-left"></i></button>
+                        <span id="code-viewer-filename">filename.py</span>
+                        <button class="icon-btn" id="btn-copy-code" title="Copy Code"><i data-lucide="copy"></i></button>
+                    </div>
+                    <pre><code id="code-content" class="language-python"></code></pre>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Floating Button to open artifacts drawer if closed -->
+        <button id="btn-open-artifacts" class="floating-btn hidden" title="View Code Artifacts">
+            <i data-lucide="folder-tree"></i>
+        </button>
+
+    </div>
+
+    <!-- ================= MODALS ================= -->
+    <div id="modal-settings" class="modal-overlay hidden">
+        <div class="modal settings-modal">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="icon-btn modal-close"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab active" data-target="settings-api">API Keys</button>
+                    <button class="tab" data-target="settings-models">Models</button>
+                </div>
+                
+                <div class="settings-content active" id="settings-api">
+                    <form id="form-api-keys">
+                        <!-- Injected via JS -->
+                    </form>
+                </div>
+                
+                <div class="settings-content hidden" id="settings-models">
+                    <form id="form-models">
+                        <!-- Injected via JS -->
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancel</button>
+                <button id="btn-save-settings" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

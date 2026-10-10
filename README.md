@@ -160,34 +160,33 @@ flowchart TB
 
 ## Screenshots
 
-## Screenshots
-
-The following screenshots showcase the AgentOS user interface and pipeline monitoring capabilities. These are referenced via Markdown image syntax and will render correctly on GitHub:
+The following screenshots showcase the AgentOS user interface, pipeline monitoring, and artifact management capabilities:
 
 ### Dashboard
-The main dashboard shows starter templates and a prompt bar for entering custom goals.
+The main dashboard with dark-mode interface, starter templates, prompt input, and Whisper voice transcription.
 
-![AgentOS Dashboard](docs/screenshots/dashboard_home.png =800x)
+![AgentOS Dashboard](docs/screenshots/dashboard_home.png)
 
 ### Settings — API Keys
-Configure API keys for multiple LLM providers. Only active providers need keys.
+Configure API keys for multiple LLM providers (Groq, Cerebras, SambaNova, OpenRouter, etc.). Only active providers require keys.
 
-![Settings - API Keys](docs/screenshots/settings_api_keys.png =750x)
+![Settings - API Keys](docs/screenshots/settings_api_keys.png)
 
 ### Settings — Model Routing
 Select the primary provider for each agent role. The system automatically falls back to the next provider if rate-limited.
 
-![Settings - Model Routing](docs/screenshots/settings_model_routing.png =750x)
+![Settings - Model Routing](docs/screenshots/settings_model_routing.png)
 
 ### Pipeline Execution
-Real-time pipeline viewer showing each agent stage with live status, streaming logs, and completion indicators. Notice the fallback rerouting and token truncation happening in the logs.
+Real-time pipeline viewer showing each agent stage with live status, streaming logs, and completion indicators.
 
-![Pipeline Execution](docs/screenshots/pipeline_execution.png =750x)
+![Pipeline Execution](docs/screenshots/pipeline_execution.png)
 
-### Artifacts Viewer
-Browse generated source files in a hierarchical file tree with syntax-highlighted code preview and one-click copy.
+### Artifacts Viewer & One-Click ZIP Export
+Browse generated source files in a hierarchical file tree with syntax-highlighted code preview, copy functionality, and one-click ZIP export.
 
-![Artifacts Viewer](docs/screenshots/artifacts_viewer.png =750x)
+![Artifacts Viewer](docs/screenshots/artifacts_viewer.png)
+
 
 ## Rate Limit Bypass & Resilient Rerouting
 
