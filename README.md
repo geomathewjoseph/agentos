@@ -80,7 +80,6 @@ flowchart TB
     classDef agent fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
     classDef decision fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     classDef output fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef feedback fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px
 
     %% User Entry Points
     subgraph ENTRY[User Entry Points]
@@ -112,37 +111,35 @@ flowchart TB
     %% Routing Decisions
     subgraph ROUTING[Conditional Routing Logic]
         direction TB
-        ROUTE_PLAN[route_after_plan: Score < 30 → Restart, ≥ 30 → Proceed]:::decision
-        ROUTE_REVIEW[route_after_review: Score < 30 → Re-architect, 30-74 → Re-code, ≥ 75 → Test]:::decision
-        ROUTE_TEST[route_after_test: Failed → Fixer, Passed → Human Approval]:::decision
+        ROUTE_PLAN["route_after_plan: Score < 30 → Restart, ≥ 30 → Proceed"]:::decision
+        ROUTE_REVIEW["route_after_review: Score < 30 → Re-architect, 30-74 → Re-code, ≥ 75 → Test"]:::decision
+        ROUTE_TEST["route_after_test: Failed → Fixer, Passed → Human Approval"]:::decision
     end
 
     %% Connections
-    ENTRY -->|Goal| GRAPH
+    ENTRY -->|"Goal"| GRAPH
     GRAPH --> PLANNER
-    PLANNER -->|Plan| ARCHITECT
-    ARCHITECT |>|File Layout & APIs| TESTWRITER
-    TESTWRITER |>|Test Suite| CODER
-    CODER |>|Source Code| REVIEWER
-    REVIEWER |>|Scores| ROUTE_REVIEW
+    PLANNER -->|"Plan"| ARCHITECT
+    ARCHITECT -->|"File Layout & APIs"| TESTWRITER
+    TESTWRITER -->|"Test Suite"| CODER
+    CODER -->|"Source Code"| REVIEWER
+    REVIEWER -->|"Scores"| ROUTE_REVIEW
 
-    ROUTE_REVIEW -->|Score < 30| ARCHITECT
-    ROUTE_REVIEW |>|Score 30-74| CODER
-    ROUTE_REVIEW |>|Score ≥ 75| TESTER
+    ROUTE_REVIEW -->|"Score < 30"| ARCHITECT
+    ROUTE_REVIEW -->|"Score 30-74"| CODER
+    ROUTE_REVIEW -->|"Score >= 75"| TESTER
 
-    TESTER -->|Tests Passed| ROUTE_TEST
-    TESTER |>|Tests Failed| FIXER
+    TESTER -->|"Tests Passed"| ROUTE_TEST
+    TESTER -->|"Tests Failed"| FIXER
 
-    FIXER -->|Patches Code| CODER
-    ROUTE_TEST -->|Human Approval| OUTPUT
-    ROUTE_TEST -->|Auto-Approve| OUTPUT
+    FIXER -->|"Patches Code"| CODER
+    ROUTE_TEST -->|"Human Approval"| OUTPUT
+    ROUTE_TEST -->|"Auto-Approve"| OUTPUT
 
-    OUTPUT -->|Project Files| GENERATED
-    OUTPUT -->|Snapshots| CHECKPOINTS
-
-    %% Click styling for Mermaid Live Editor
-    classDef endStroke:none
+    OUTPUT -->|"Project Files"| GENERATED
+    OUTPUT -->|"Snapshots"| CHECKPOINTS
 ```
+
 
 **Pipeline Flow Summary:**
 1. **User Input**: CLI, Web UI, or API submits a product goal
